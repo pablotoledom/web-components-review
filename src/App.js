@@ -7,6 +7,7 @@ function App() {
   const [childModule, setChildModule] = useState(null);
   const [childWidth, setChildWidth] = useState('');
   const [textAlign, setTextAlign] = useState('');
+  const [forceFail, setForceFail] = useState(false);
 
   return (
     <div className="App">
@@ -35,6 +36,14 @@ function App() {
             <option value="Right">Right</option>
           </select>
         </div>
+        <div>
+          Force fail:
+          <button
+            onClick={() => setForceFail(true)}
+          >
+            Fail
+          </button>
+        </div>
       </section>
 
       <h2>Select any module from the menu</h2>
@@ -45,11 +54,15 @@ function App() {
 
       <div>
         {childModule === 'module1' ? (
-          <table-module width={childWidth}></table-module>
+          <table-module width={childWidth} />
         ) : null}
 
         {childModule === 'module2' ? (
-          <lorem-ipsum-module width={childWidth} text-align={textAlign}></lorem-ipsum-module>
+          <lorem-ipsum-module
+            width={childWidth}
+            text-align={textAlign}
+            force-fail={forceFail}
+          />
         ) : null}
       </div>
     </div>

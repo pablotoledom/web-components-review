@@ -9,7 +9,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.0",
-    "web-components-review-module-loremipsum": "git+https://github.com/pablotoledom/web-components-review-module-loremipsum.git",
+    "web-components-review-module-loremipsum": "git+https://github.com/pablotoledom/web-components-review-module-loremipsum.git#fail",
     "web-components-review-module-table": "git+https://github.com/pablotoledom/web-components-review-module-table.git",
     "web-vitals": "^2.1.4"
   },
