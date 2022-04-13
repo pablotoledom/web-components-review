@@ -50,6 +50,7 @@ function App() {
       <ul>
         <li><a href="#" onClick={() => setChildModule('module1')}>HTML Table example</a></li>
         <li><a href="#" onClick={() => setChildModule('module2')}>Lorem Impsum example</a></li>
+        <li><a href="#" onClick={() => setChildModule('module3')}>Fail Example</a></li>
       </ul>
 
       <div>
@@ -59,6 +60,14 @@ function App() {
 
         {childModule === 'module2' ? (
           <lorem-ipsum-module
+            width={childWidth}
+            text-align={textAlign}
+            force-fail={forceFail}
+          />
+        ) : null}
+        
+        {childModule === 'module3' ? (
+          <fail-module
             width={childWidth}
             text-align={textAlign}
             force-fail={forceFail}
