@@ -5,9 +5,29 @@ import 'web-components-review-module-loremipsum'
 
 function App() {
   const [childModule, setChildModule] = useState(null);
-  const [childWidth, setChildWidth] = useState('');
-  const [textAlign, setTextAlign] = useState('');
-  const [forceFail, setForceFail] = useState(false);
+  const [childWidth, setChildWidth] = useState('100');
+  const [textAlign, setTextAlign] = useState('left');
+  const [forceFailByAttr, setForceFailByAttr] = useState(false);
+  const [manipulateChildByAttr, setManipulateChildByAttr] = useState(false);
+
+  const resetForm = () => {
+    setChildWidth('100');
+    setTextAlign('left');
+    setForceFailByAttr(false);
+    setManipulateChildByAttr(false);
+  };
+
+  const manipulateChildFromParent = () => {
+    const childWebComponent = document.querySelector("test-module");
+    
+    if (childWebComponent) {
+      const moduleContent = childWebComponent._root.querySelector(".first-p");
+      
+      if(moduleContent) {
+        moduleContent.innerHTML = "<h1>Child manipulated from parent directly</h1>";
+      }
+    }
+  };
 
   return (
     <div className="App">
@@ -15,62 +35,80 @@ function App() {
 
       <h2>Children attributes</h2>
       
-      <section>
-        <div>
-          Width:
-          <input
-            onChange={(event) => setChildWidth(event.target.value)}
-            value={childWidth}
-          />
-          %
-        </div>
-        <div>
-          Text align:
-          <select
-            onChange={(event) => setTextAlign(event.target.value)}
-            value={textAlign}
-          >
-            <option value="center">Center</option>
-            <option value="justify">Justify</option>
-            <option value="left">Left</option>
-            <option value="Right">Right</option>
-          </select>
-        </div>
-        <div>
-          Force fail:
-          <button
-            onClick={() => setForceFail(true)}
-          >
-            Fail
-          </button>
+      <section className="form">
+        <div className="form-container">
+          <div className="form-option">
+            Width (%):
+            <input
+              onChange={(event) => setChildWidth(event.target.value)}
+              value={childWidth}
+            />
+          </div>
+          <div className="form-option">
+            Text align:
+            <select
+              onChange={(event) => setTextAlign(event.target.value)}
+              value={textAlign}
+            >
+              <option value="center">Center</option>
+              <option value="justify">Justify</option>
+              <option value="left">Left</option>
+              <option value="Right">Right</option>
+            </select>
+          </div>
+          <div className="form-option">
+            Force fail by attribute:
+            <button
+              onClick={() => setForceFailByAttr()}
+            >
+              Fail Child
+            </button>
+          </div>
+          <div className="form-option">
+            Manipulate child by attribute:
+            <button
+              onClick={() => setManipulateChildByAttr(true)}
+            >
+              Test
+            </button>
+          </div>
+          <div className="form-option">
+            Manipulate child from parent:
+            <button
+              onClick={() => manipulateChildFromParent()}
+            >
+              Test
+            </button>
+          </div>
         </div>
       </section>
 
       <h2>Select any module from the menu</h2>
-      <ul>
-        <li><a href="#" onClick={() => setChildModule('module1')}>HTML Table example</a></li>
-        <li><a href="#" onClick={() => setChildModule('module2')}>Lorem Impsum example</a></li>
-        <li><a href="#" onClick={() => setChildModule('module3')}>Fail Example</a></li>
+      <ul className="parent-menu">
+        <li><a href="#" onClick={() => {resetForm(); setChildModule('module1')}}>Test module Example</a></li>
+        <li><a href="#" onClick={() => {resetForm(); setChildModule('module2')}}>HTML Table example</a></li>
+        <li><a href="#" onClick={() => {resetForm(); setChildModule('module3')}}>Lorem Impsum example</a></li>
       </ul>
 
       <div>
-        {childModule === 'module1' ? (
-          <table-module width={childWidth} />
+      {childModule === 'module1' ? (
+          <test-module
+            width={childWidth}
+            text-align={textAlign}
+            force-fail={forceFailByAttr}
+            manipulate={manipulateChildByAttr}
+          />
         ) : null}
 
         {childModule === 'module2' ? (
+          <table-module width={childWidth} />
+        ) : null}
+
+        {childModule === 'module3' ? (
           <lorem-ipsum-module
             width={childWidth}
             text-align={textAlign}
-            force-fail={forceFail}
-          />
-        ) : null}
-        
-        {childModule === 'module3' ? (
-          <fail-module
-            width={childWidth}
-            text-align={textAlign}
-            force-fail={forceFail}
+            force-fail={forceFailByAttr}
           />
         ) : null}
       </div>

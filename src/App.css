@@ -35,3 +35,25 @@ li a {
 li a:hover {
   background-color: #111111;
 }
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  width: 400px;
+}
+
+.form-option {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+input, select, button {
+  width: 100px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #000;
+}
